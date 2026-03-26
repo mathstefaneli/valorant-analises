@@ -1,14 +1,13 @@
-from analysis import load_data, advanced_probability
+from analysis import load_data, team_ranking
 
 def main():
     df = load_data("data/matches.csv")
 
-    team1 = "LOUD"
-    team2 = "Fnatic"
+    ranking = team_ranking(df)
 
-    prob = advanced_probability(df, team1, team2)
-
-    print(f"Probabilidade AVANÇADA de {team1} ganhar da {team2}: {prob:.2f}")
+    print("=== RANKING DOS TIMES ===")
+    for i, (team, wr) in enumerate(ranking, start=1):
+        print(f"{i}. {team} - Win rate: {wr:.2f}")
 
 if __name__ == "__main__":
     main()

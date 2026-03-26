@@ -42,3 +42,17 @@ def advanced_probability(df, team1, team2):
     prob = (h2h * 0.6) + (wr1 * 0.4)
 
     return prob
+
+def team_ranking(df):
+    teams = set(df["team1"]).union(set(df["team2"]))
+
+    ranking = []
+
+    for team in teams:
+        wr = win_rate(df, team)
+        ranking.append((team, wr))
+
+    # ordenar do maior pro menor
+    ranking.sort(key=lambda x: x[1], reverse=True)
+
+    return ranking

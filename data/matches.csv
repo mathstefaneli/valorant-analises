@@ -1,6 +1,6 @@
-team1,team2,winner,map
-LOUD,Fnatic,LOUD,Bind
-Fnatic,Sentinels,Fnatic,Haven
-LOUD,Sentinels,LOUD,Ascent
-Sentinels,LOUD,Sentinels,Split
-Fnatic,LOUD,Fnatic,Icebox
+team1,team2,map,winner
+LOUD,Fnatic,Bind,LOUD
+LOUD,Fnatic,Haven,Fnatic
+LOUD,Fnatic,Ascent,LOUD
+Fnatic,Sentinels,Split,Fnatic
+Sentinels,LOUD,Bind,LOUD

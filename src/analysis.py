@@ -84,3 +84,28 @@ def calculate_elo(df, k=32):
         ratings[team2] = r2 + k * (score2 - expected2)
 
     return ratings
+
+def map_win_rate(df, team, map_name):
+    games = df[
+        ((df["team1"] == team) | (df["team2"] == team)) &
+        (df["map"] == map_name)
+    ]
+
+    wins = df[
+        (df["winner"] == team) &
+        (df["map"] == map_name)
+    ]
+
+    if len(games) == 0:
+        return 0
+
+    return len(wins) / len(games)
+
+def map_probability(df, team1, team2, map_name):
+    wr1 = map_win_rate(df, team1, map_name)
+    wr2 = map_win_rate(df, team2, map_name)
+
+    if wr1 + wr2 == 0:
+        return 0.5
+
+    return wr1 / (wr1 + wr2)

@@ -1,17 +1,15 @@
-from analysis import load_data, calculate_elo
+from analysis import load_data, map_probability
 
 def main():
     df = load_data("data/matches.csv")
 
-    ratings = calculate_elo(df)
+    team1 = "LOUD"
+    team2 = "Fnatic"
+    map_name = "Bind"
 
-    print("=== RANKING ELO ===")
-    
-    # ordenar do maior pro menor
-    sorted_teams = sorted(ratings.items(), key=lambda x: x[1], reverse=True)
+    prob = map_probability(df, team1, team2, map_name)
 
-    for i, (team, rating) in enumerate(sorted_teams, start=1):
-        print(f"{i}. {team} - Elo: {rating:.0f}")
+    print(f"Chance de {team1} ganhar da {team2} no mapa {map_name}: {prob:.2f}")
 
 if __name__ == "__main__":
     main()

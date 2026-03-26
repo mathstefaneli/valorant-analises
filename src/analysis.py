@@ -56,3 +56,31 @@ def team_ranking(df):
     ranking.sort(key=lambda x: x[1], reverse=True)
 
     return ranking
+
+def calculate_elo(df, k=32):
+    teams = set(df["team1"]).union(set(df["team2"]))
+
+    # todos começam com 1000
+    ratings = {team: 1000 for team in teams}
+
+    for _, row in df.iterrows():
+        team1 = row["team1"]
+        team2 = row["team2"]
+        winner = row["winner"]
+
+        r1 = ratings[team1]
+        r2 = ratings[team2]
+
+        # probabilidade esperada
+        expected1 = 1 / (1 + 10 ** ((r2 - r1) / 400))
+        expected2 = 1 / (1 + 10 ** ((r1 - r2) / 400))
+
+        # resultado real
+        score1 = 1 if winner == team1 else 0
+        score2 = 1 if winner == team2 else 0
+
+        # atualização
+        ratings[team1] = r1 + k * (score1 - expected1)
+        ratings[team2] = r2 + k * (score2 - expected2)
+
+    return ratings

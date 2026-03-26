@@ -1,13 +1,17 @@
-from analysis import load_data, team_ranking
+from analysis import load_data, calculate_elo
 
 def main():
     df = load_data("data/matches.csv")
 
-    ranking = team_ranking(df)
+    ratings = calculate_elo(df)
 
-    print("=== RANKING DOS TIMES ===")
-    for i, (team, wr) in enumerate(ranking, start=1):
-        print(f"{i}. {team} - Win rate: {wr:.2f}")
+    print("=== RANKING ELO ===")
+    
+    # ordenar do maior pro menor
+    sorted_teams = sorted(ratings.items(), key=lambda x: x[1], reverse=True)
+
+    for i, (team, rating) in enumerate(sorted_teams, start=1):
+        print(f"{i}. {team} - Elo: {rating:.0f}")
 
 if __name__ == "__main__":
     main()
